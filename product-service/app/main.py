@@ -1,4 +1,4 @@
-# main.py
+
 from contextlib import asynccontextmanager
 from typing import Annotated
 from sqlmodel import Session, SQLModel
@@ -19,7 +19,7 @@ def create_db_and_tables() -> None:
 
 
 async def consume_messages(topic, bootstrap_servers):
-    # Create a consumer instance.
+
     consumer = AIOKafkaConsumer(
         topic,
         bootstrap_servers=bootstrap_servers,
@@ -30,7 +30,7 @@ async def consume_messages(topic, bootstrap_servers):
     # Start the consumer.
     await consumer.start()
     try:
-        # Continuously listen for messages.
+
         async for message in consumer:
             print("RAW")
             print(f"Received message on topic {message.topic}")
@@ -45,14 +45,14 @@ async def consume_messages(topic, bootstrap_servers):
                     product_data=Product(**product_data), session=session)
                 print("DB_INSERT_PRODUCT", db_insert_product)
 
-            # Here you can add code to process each message.
-            # Example: parse the message, store it in a database, etc.
+
+
     finally:
-        # Ensure to close the consumer when done.
+
         await consumer.stop()
 
 
-# The first part of the function, before the yield, will
+
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     print("Creating table!")
@@ -65,7 +65,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 
 app = FastAPI(
     lifespan=lifespan,
-    title="Hello World API with DB",
+    title="Hello World API with DataBase",
     version="0.0.1",
 )
 
